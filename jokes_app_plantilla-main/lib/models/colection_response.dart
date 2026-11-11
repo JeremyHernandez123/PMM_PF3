@@ -1,19 +1,19 @@
 import 'models.dart';
 
-class Colection {
+class ColectionResponse {
     Info info;
     List<Record> records;
 
-    Colection({
+    ColectionResponse({
         required this.info,
         required this.records,
     });
 
-    factory Colection.fromJson(String str) => Colection.fromMap(json.decode(str));
+    factory ColectionResponse.fromJson(String str) => ColectionResponse.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory Colection.fromMap(Map<String, dynamic> json) => Colection(
+    factory ColectionResponse.fromMap(Map<String, dynamic> json) => ColectionResponse(
         info: Info.fromMap(json["info"]),
         records: List<Record>.from(json["records"].map((x) => Record.fromMap(x))),
     );
