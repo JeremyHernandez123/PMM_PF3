@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/providers/artworks_provider.dart';
 import 'package:movies_app/screens/screens.dart';
+import 'package:provider/provider.dart';
+
 
 void main() => runApp(MyApp());
+
+class AppState extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: ( _ ) => ArtworksProvider())
+      ],
+      child: MyApp(),
+    ); 
+  }
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Pel·lícules',
+      title: 'Coleccions',
       initialRoute: '/',
       routes: {
         '/': (BuildContext context) => HomeScreen(),
