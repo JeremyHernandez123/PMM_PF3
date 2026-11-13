@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/widgets/widgets.dart';
+import 'package:movies_app/models/models.dart';
 
 class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: Canviar després per una instància de Peli
-    final String peli = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-movie';
+    final artWork = ModalRoute.of(context)?.settings.arguments as ArtWork;
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _CustomAppBar(),
+          _CustomAppBar(artWork: artWork),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                _PosterAndTitile(),
-                _Overview(),
-                _Overview(),
+                _PosterAndTitile(artWork: artWork),
+                _Overview(artWork: artWork),
                 // CastingCards(),
               ],
             ),
@@ -28,9 +28,13 @@ class DetailsScreen extends StatelessWidget {
 }
 
 class _CustomAppBar extends StatelessWidget {
+
+  final ArtWork artWork; 
+  const _CustomAppBar({Key? key, required this.artWork}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // Exactament igual que la AppBaer però amb bon comportament davant scroll
+
     return SliverAppBar(
       backgroundColor: Colors.indigo,
       expandedHeight: 200,
@@ -45,13 +49,13 @@ class _CustomAppBar extends StatelessWidget {
           color: Colors.black12,
           padding: const EdgeInsets.only(bottom: 10),
           child: Text(
-            'Títol peli',
+            artWork.title ?? 'No hi ha títol disponible',
             style: TextStyle(fontSize: 16),
           ),
         ),
         background: FadeInImage(
           placeholder: AssetImage('assets/loading.gif'),
-          image: NetworkImage('https://placehold.co/500x300/png'),
+          image: NetworkImage(artWork.primaryimageurl),
           fit: BoxFit.cover,
         ),
       ),
@@ -60,9 +64,11 @@ class _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitile extends StatelessWidget {
+    final ArtWork artWork; 
+    const _PosterAndTitile({Key? key, required this.artWork}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
+    final TextTheme textTheme = Theme.of(context).textTheme;    
     return Container(
       margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -72,7 +78,7 @@ class _PosterAndTitile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: AssetImage('assets/loading.gif'),
-              image: NetworkImage('https://placehold.co/200x300/png'),
+              image: NetworkImage(artWork.primaryimageurl),
               height: 150,
             ),
           ),
@@ -82,13 +88,13 @@ class _PosterAndTitile extends StatelessWidget {
           Column(
             children: [
               Text(
-                'Títol peli',
+                artWork.title ?? 'No hi ha títol disponible',
                 style: textTheme.headlineSmall,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
-              Text(
-                'Títol original',
+             /* Text(
+                artWork.tit ?? 'No hi ha títol original disponible',
                 style: textTheme.titleMedium,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -98,8 +104,9 @@ class _PosterAndTitile extends StatelessWidget {
                   const Icon(Icons.star_outline, size: 15, color: Colors.grey),
                   const SizedBox(width: 5),
                   Text('Nota mitjana', style: textTheme.bodySmall),
-                ],
-              )
+
+                ], 
+              ) */
             ],
           )
         ],
@@ -109,12 +116,15 @@ class _PosterAndTitile extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
+  final ArtWork artWork;
+  _Overview({required this.artWork});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Text(
-        'Labore eiusmod ad reprehenderit irure eu sunt ex minim. Lorem fugiat Lorem proident duis ea cupidatat. Commodo duis culpa reprehenderit ad elit. Velit duis officia reprehenderit ullamco sint id anim officia est. Enim mollit nisi et exercitation dolore commodo. Cillum mollit laborum non nulla cillum non do reprehenderit Lorem deserunt ex eu sunt do.',
+        artWork.description ?? 'No hi ha descripció disponible',
         textAlign: TextAlign.justify,
         style: Theme.of(context).textTheme.titleMedium,
       ),
