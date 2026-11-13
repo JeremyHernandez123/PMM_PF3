@@ -1,3 +1,4 @@
+export 'package:movies_app/models/person.dart';
 export 'package:movies_app/models/artwork.dart';
 export 'package:movies_app/models/info.dart';
 export 'dart:convert';

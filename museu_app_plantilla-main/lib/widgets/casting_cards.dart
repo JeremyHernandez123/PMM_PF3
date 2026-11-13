@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/models/models.dart';
 
 class CastingCards extends StatelessWidget {
+  final List<Person> cast;
+
+  CastingCards({required this.cast});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -9,7 +14,7 @@ class CastingCards extends StatelessWidget {
       height: 200,
       // color: Colors.red,
       child: ListView.builder(
-          itemCount: 10,
+          itemCount: cast.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context, int index) => _CastCard()),
     );

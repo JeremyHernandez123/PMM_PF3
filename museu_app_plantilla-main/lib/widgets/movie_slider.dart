@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/models/models.dart';
 
 class MovieSlider extends StatelessWidget {
-  // const MovieSlider({Key? key}) : super(key: key);
+
+  final ArtWork artwork;
+
+  const MovieSlider({Key? key, required this.artwork}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class MovieSlider extends StatelessWidget {
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 20,
-                itemBuilder: (_, int index) => _MoviePoster()),
+                itemBuilder: (_, int index) => _MoviePoster(artwork: artwork)),
           )
         ],
       ),
@@ -31,7 +35,9 @@ class MovieSlider extends StatelessWidget {
 }
 
 class _MoviePoster extends StatelessWidget {
-  const _MoviePoster({Key? key}) : super(key: key);
+  final ArtWork artwork;
+
+  const _MoviePoster({Key? key, required this.artwork}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +54,7 @@ class _MoviePoster extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage('https://placehold.co/300x400/png'),
+                image: NetworkImage(artwork.primaryimageurl),
                 width: 130,
                 height: 190,
                 fit: BoxFit.cover,
@@ -59,7 +65,7 @@ class _MoviePoster extends StatelessWidget {
             height: 5,
           ),
           Text(
-            'Star Wars: El retorno del Jedi',
+            artwork.title ?? 'No title',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
