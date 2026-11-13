@@ -27,7 +27,7 @@ final List<ArtWork> artWork;
         height: size.height * 0.5,
         // color: Colors.red,
         child: Swiper(
-          itemCount: 10,
+          itemCount: artWork.length,
           layout: SwiperLayout.STACK,
           itemWidth: size.width * 0.6,
           itemHeight: size.height * 0.4,

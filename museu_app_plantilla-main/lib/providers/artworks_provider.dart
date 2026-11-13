@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:movies_app/models/models.dart';
 
-
-
-
-
 class ArtworksProvider extends ChangeNotifier {
 
   final String _url = 'api.harvardartmuseums.org'; 
@@ -20,25 +16,30 @@ class ArtworksProvider extends ChangeNotifier {
   }
   
   getOnDisplayArtWork() async{
+
+    try{
       final url = Uri.https(
-      _url,
-      '/object',
-      {
-        'apikey': _apiKey,
-        'page': _page,
-        'size': '20',
-        'hasimage': '1',
-      },
-    );
+            _url,
+            '/object',
+            {
+              'apikey': _apiKey,
+              'page': _page,
+              'size': '20',
+              'hasimage': '1',
+            },
+          );
+      final response = await http.get(url);
 
-    final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final collectionResponse = ColectionResponse.fromJson(response.body);
 
-    if (response.statusCode == 200) {
-      final collectionResponse = ColectionResponse.fromJson(response.body);
+        onDisplayArtwork = collectionResponse.records.where((artwork) => artwork.primaryimageurl.isNotEmpty).toList();
 
-      onDisplayArtwork = collectionResponse.records;
-
-      notifyListeners();
+        notifyListeners();
+      }
+      
+    }catch(e){
+      print(e);
     }
   }
 }
