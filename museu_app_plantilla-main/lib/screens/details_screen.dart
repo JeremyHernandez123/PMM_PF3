@@ -17,7 +17,7 @@ class DetailsScreen extends StatelessWidget {
               [
                 _PosterAndTitile(artWork: artWork),
                 _Overview(artWork: artWork),
-                // CastingCards(),
+                CastingCards(artists: artWork.artists ?? []),
               ],
             ),
           ),
@@ -48,10 +48,10 @@ class _CustomAppBar extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           color: Colors.black12,
           padding: const EdgeInsets.only(bottom: 10),
-          child: Text(
+          /* child: Text(
             artWork.title ?? 'No hi ha títol disponible',
             style: TextStyle(fontSize: 16),
-          ),
+          ), */
         ),
         background: FadeInImage(
           placeholder: AssetImage('assets/loading.gif'),
