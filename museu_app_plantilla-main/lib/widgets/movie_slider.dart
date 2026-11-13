@@ -3,7 +3,7 @@ import 'package:movies_app/models/models.dart';
 
 class MovieSlider extends StatelessWidget {
 
-  final ArtWork artwork;
+  final List<ArtWork> artwork;
 
   const MovieSlider({Key? key, required this.artwork}) : super(key: key);
 
@@ -25,8 +25,8 @@ class MovieSlider extends StatelessWidget {
           Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 20,
-                itemBuilder: (_, int index) => _MoviePoster(artwork: artwork)),
+                itemCount: artwork.length,
+                itemBuilder: (_, int index) => _MoviePoster(artwork: artwork[index])),
           )
         ],
       ),

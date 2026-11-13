@@ -9,10 +9,12 @@ class ArtworksProvider extends ChangeNotifier {
   final String _page = "1"; 
 
   List<ArtWork> onDisplayArtwork = []; 
+  List<ArtWork> popularArtwork = [];
   
 
   ArtworksProvider(){
     this.getOnDisplayArtWork(); 
+    this.getPopularArtWork();
   }
   
   getOnDisplayArtWork() async{
@@ -34,6 +36,34 @@ class ArtworksProvider extends ChangeNotifier {
         final collectionResponse = ColectionResponse.fromJson(response.body);
 
         onDisplayArtwork = collectionResponse.records.where((artwork) => artwork.primaryimageurl.isNotEmpty).toList();
+
+        notifyListeners();
+      }
+      
+    }catch(e){
+      print(e);
+    }
+  }
+
+  getPopularArtWork() async{
+
+    try{
+      final url = Uri.https(
+            _url,
+            '/object',
+            {
+              'apikey': _apiKey,
+              'page': _page,
+              'size': '20',
+              'hasimage': '1',
+            },
+          );
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final collectionResponse = ColectionResponse.fromJson(response.body);
+
+        popularArtwork = collectionResponse.records.where((artwork) => artwork.primaryimageurl.isNotEmpty).toList();
 
         notifyListeners();
       }
