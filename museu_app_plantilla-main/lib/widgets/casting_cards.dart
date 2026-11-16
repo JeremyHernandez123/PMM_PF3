@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/models/models.dart';
 
 class CastingCards extends StatelessWidget {
   final List<String> artists;

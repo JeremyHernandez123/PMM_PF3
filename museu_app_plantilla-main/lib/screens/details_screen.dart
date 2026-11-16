@@ -80,6 +80,8 @@ class _PosterAndTitile extends StatelessWidget {
               placeholder: AssetImage('assets/loading.gif'),
               image: NetworkImage(artWork.primaryimageurl),
               height: 150,
+              width: 110,
+              fit: BoxFit.cover,
             ),
           ),
           const SizedBox(
@@ -87,11 +89,13 @@ class _PosterAndTitile extends StatelessWidget {
           ),
           Column(
             children: [
-              Text(
-                artWork.title ?? 'No hi ha títol disponible',
-                style: textTheme.headlineSmall,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+              Container(
+                width: 325,
+                child: Text(
+                  artWork.title ?? 'No hi ha títol disponible',
+                  style: textTheme.headlineSmall,
+                  
+                ),
               ),
              /* Text(
                 artWork.tit ?? 'No hi ha títol original disponible',
