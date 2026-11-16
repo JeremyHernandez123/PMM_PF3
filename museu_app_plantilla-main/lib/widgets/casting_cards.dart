@@ -7,21 +7,34 @@ class CastingCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (artists.isEmpty) {
-      return const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Text('No hi ha autor disponible'),
-      );
-    }
-    return Container(
-      margin: const EdgeInsets.only(bottom: 30),
-      width: double.infinity,
-      height: 200,
-      // color: Colors.red,
-      child: ListView.builder(
-          itemCount: artists.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (BuildContext context, int index) => _CastCard(autorName: artists[index])),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Text(
+            'Autors',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
+        if (artists.isEmpty)
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Text('No hi ha autor disponible'),
+          )
+        else
+          Container(
+            margin: const EdgeInsets.only(bottom: 30),
+            width: double.infinity,
+            height: 60,
+            child: ListView.builder(
+              itemCount: artists.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) =>
+                  _CastCard(autorName: artists[index]),
+            ),
+          ),
+      ],
     );
   }
 }
